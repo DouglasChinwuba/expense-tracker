@@ -1,4 +1,4 @@
-package com.expensetracker.auth.payload;
+package com.expensetracker.auth.payload.request;
 
 public class LoginRequest {
 

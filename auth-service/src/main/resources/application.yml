@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost/expense_tracker?useSSL=false
+    username: user
+    password: test123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+expenseTracker:
+  jwt:
+    secretKey: secret
+    jwtExpirationMs: 86400000
