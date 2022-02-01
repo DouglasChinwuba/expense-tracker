@@ -2,6 +2,7 @@ package com.expensetracker.auth.controller;
 
 import com.expensetracker.auth.jwt.JwtUtil;
 import com.expensetracker.auth.payload.request.LoginRequest;
+import com.expensetracker.auth.payload.request.SignupRequest;
 import com.expensetracker.auth.payload.response.JwtResponse;
 import com.expensetracker.auth.service.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,17 +34,16 @@ public class AuthController {
     @Autowired
     JwtUtil jwtUtil;
 
-    @GetMapping("/signup")
-    public String registerUser(){
-        return "I'm signedin";
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
+        return null;
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
         } catch (AuthenticationException e) {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.FORBIDDEN);
