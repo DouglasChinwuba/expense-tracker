@@ -21,6 +21,7 @@ public class JwtUtil {
     @Value("${expenseTracker.jwt.secretKey}")
     private String secretKey;
 
+    @Value("${expenseTracker.jwt.expirationMs}")
     private String jwtExpirationMs;
 
     public String generateJwtToken(UserDetailsImpl userDetails){
@@ -29,6 +30,8 @@ public class JwtUtil {
     }
 
     public String createToken(Map<String, Object> claims, String subject){
+        logger.info("Creating jwt token");
+
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)

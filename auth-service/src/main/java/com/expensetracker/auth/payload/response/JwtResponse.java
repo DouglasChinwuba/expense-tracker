@@ -3,6 +3,7 @@ package com.expensetracker.auth.payload.response;
 import java.util.List;
 
 public class JwtResponse {
+
     private String token;
     private int id;
     private String username;
@@ -15,6 +16,14 @@ public class JwtResponse {
         this.username = username;
         this.email = email;
         this.roles = roles;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public int getId() {

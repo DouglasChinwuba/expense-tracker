@@ -44,6 +44,7 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword())
             );
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             return new ResponseEntity(HttpStatus.FORBIDDEN);
         }
 

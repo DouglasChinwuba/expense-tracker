@@ -14,4 +14,4 @@ spring:
 expenseTracker:
   jwt:
     secretKey: secret
-    jwtExpirationMs: 86400000
+    expirationMs: 86400000
