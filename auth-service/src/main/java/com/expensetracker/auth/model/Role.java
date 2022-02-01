@@ -21,8 +21,8 @@ public class Role {
     private int Id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="role", length = 20)
-    private ERole role;
+    @Column(name="name", length = 20)
+    private ERole name;
 
     public Role() {
     }
@@ -35,11 +35,11 @@ public class Role {
         Id = id;
     }
 
-    public ERole getRole() {
-        return role;
+    public ERole getName() {
+        return name;
     }
 
-    public void setRole(ERole role) {
-        this.role = role;
+    public void setName(ERole name) {
+        this.name = name;
     }
 }

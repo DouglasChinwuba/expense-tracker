@@ -43,10 +43,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 if (jwtUtil.validateJwtToken(jwtToken, userDetails) &&
                         SecurityContextHolder.getContext().getAuthentication() == null){
 
+                    //create usernamePasswordAuthenticationToken with userDetails
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
+                    //set its details to the request
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                    //set SecurityContextHolder-context-authentication to usernamePasswordAuthenticationToken
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
             }
@@ -54,6 +58,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             logger.error("Error setting authentication: {}", e);
         }
 
+        //telling other filters to continue the filtering chain
         filterChain.doFilter(request, response);
     }
 
