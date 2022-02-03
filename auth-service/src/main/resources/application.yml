@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: auth-service
   datasource:
     url: jdbc:postgresql://localhost/expense_tracker?useSSL=false
     username: user

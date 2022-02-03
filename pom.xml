@@ -47,6 +47,7 @@
     <modules>
         <module>auth-service</module>
         <module>discovery-server</module>
+        <module>gateway</module>
     </modules>
 
 </project>
