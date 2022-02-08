@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -40,22 +41,25 @@ public class AuthController {
     private static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     @Autowired
-    UserDetailsService userDetailsService;
+    private UserDetailsService userDetailsService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    JwtUtil jwtUtil;
+    private JwtUtil jwtUtil;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signupRequest){
@@ -71,7 +75,7 @@ public class AuthController {
                     .body(new MessageResponse("This email is already in use"));
         }
 
-        logger.info("creating the new user account");
+        logger.info("creating the new user");
         User user = new User(signupRequest.getFirstname(),
                              signupRequest.getLastname(),
                              signupRequest.getUsername(),
@@ -107,6 +111,14 @@ public class AuthController {
 
         logger.info("Saving user into database");
         userRepository.save(user);
+
+        logger.info("Creating user account");
+        // send request to account service to create new account
+        Object object = restTemplate.postForObject("http://ACCOUNT-SERVICE/account/", user, Object.class);
+
+        if(Objects.isNull(object)){
+            return ResponseEntity.internalServerError().body(new MessageResponse("Error: Could not create account"));
+        }
 
         return ResponseEntity.ok(new MessageResponse("Registration successful"));
     }

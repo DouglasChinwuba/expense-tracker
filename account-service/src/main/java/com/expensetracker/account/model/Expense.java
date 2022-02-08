@@ -14,17 +14,18 @@ import java.util.Date;
 
 @Table(name = "expenses")
 public class Expense {
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "description")
-    @Size(max = 20)
+    @Size(max = 50)
     @NotNull
     private String description;
 
-    @Column(name = "amount")
+    @Column(name = "amount", scale = 13, precision = 2)
     @NotNull
     private BigDecimal amount;
 

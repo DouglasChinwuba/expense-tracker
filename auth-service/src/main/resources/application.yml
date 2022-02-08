@@ -5,7 +5,6 @@ spring:
     url: jdbc:postgresql://localhost/expense_tracker?useSSL=false
     username: user
     password: test123
-
   jpa:
     hibernate:
       ddl-auto: update

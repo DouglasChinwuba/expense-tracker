@@ -2,6 +2,7 @@ package com.expensetracker.auth.config;
 
 import com.expensetracker.auth.jwt.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -38,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        // add jwtRequestFilter before UsernamePasswordAuthenticationFilter
+        // call jwtRequestFilter before UsernamePasswordAuthenticationFilter
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -51,5 +53,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @LoadBalanced
+    public RestTemplate getRestTemplate(){
+        return new RestTemplate();
     }
 }
