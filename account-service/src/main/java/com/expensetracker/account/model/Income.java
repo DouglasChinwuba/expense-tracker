@@ -12,9 +12,8 @@ import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Table(name = "transactions")
-public class Transaction {
-
+@Table(name = "incomes")
+public class Income {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +24,13 @@ public class Transaction {
     @NotNull
     private String description;
 
-    @Column(name = "amount")
+    @Column(name = "amount", scale = 13, precision = 2)
     @NotNull
     private BigDecimal amount;
 
     @Column(name = "date")
     @NotNull
     private Date date;
-
-    @Column(name = "is_income")
-    @NotNull
-    private boolean isIncome;
 
     @ManyToOne
     @NotNull
@@ -72,14 +67,6 @@ public class Transaction {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public boolean isIncome() {
-        return isIncome;
-    }
-
-    public void setIncome(boolean income) {
-        isIncome = income;
     }
 
     public Account getAccount() {

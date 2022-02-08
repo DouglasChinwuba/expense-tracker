@@ -26,7 +26,10 @@ public class Account {
     private String name;
 
     @OneToMany(mappedBy = "account")
-    private List<Transaction> transactions;
+    private List<Income> incomes;
+
+    @OneToMany(mappedBy = "account")
+    private List<Expense> expenses;
 
     public Account() {
     }
@@ -55,11 +58,5 @@ public class Account {
         this.name = name;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
 
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
 }
