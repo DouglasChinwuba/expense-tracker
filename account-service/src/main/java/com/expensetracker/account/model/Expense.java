@@ -19,9 +19,9 @@ import java.time.LocalDateTime;
 public class Expense {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "transaction_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int transactionId;
 
     @Column(name = "description")
     @Size(max = 50)
@@ -44,12 +44,12 @@ public class Expense {
     public Expense() {
     }
 
-    public int getId() {
-        return id;
+    public int getTransactionId() {
+        return transactionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
     }
 
     public String getDescription() {

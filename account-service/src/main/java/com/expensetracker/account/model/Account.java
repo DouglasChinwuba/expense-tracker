@@ -15,9 +15,9 @@ import java.util.List;
 public class Account {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int accountId;
 
     @Column(name = "user_id")
     @NotNull
@@ -36,12 +36,12 @@ public class Account {
     public Account() {
     }
 
-    public int getId() {
-        return id;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
     }
 
     public int getUserId() {

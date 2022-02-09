@@ -19,8 +19,9 @@ public class AccountController {
     private AccountService accountService;
 
     @GetMapping("/{name}")
-    public String getAccountByName(String name){
-        return "This is my account";
+    public ResponseEntity<?> getAccountByName(String name){
+        Account account = accountService.findByName(name);
+        return ResponseEntity.ok(account);
     }
 
     @PostMapping("/create")
