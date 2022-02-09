@@ -1,17 +1,20 @@
 package com.expensetracker.account.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
+@Entity
 @Table(name = "expenses")
 public class Expense {
 
@@ -22,7 +25,7 @@ public class Expense {
 
     @Column(name = "description")
     @Size(max = 50)
-    @NotNull
+    @NotBlank
     private String description;
 
     @Column(name = "amount", scale = 13, precision = 2)
@@ -31,12 +34,15 @@ public class Expense {
 
     @Column(name = "date")
     @NotNull
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne
     @NotNull
     @JoinColumn(name = "account_id")
     private Account account;
+
+    public Expense() {
+    }
 
     public int getId() {
         return id;
@@ -62,11 +68,11 @@ public class Expense {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

@@ -75,7 +75,7 @@ public class AuthController {
                     .body(new MessageResponse("This email is already in use"));
         }
 
-        logger.info("creating new user: " + signupRequest.getUsername());
+        logger.info("Creating new user: " + signupRequest.getUsername());
         User user = new User(signupRequest.getFirstname(),
                              signupRequest.getLastname(),
                              signupRequest.getUsername(),
@@ -109,10 +109,10 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        logger.info("Saving user {} into database", user.getUsername());
+        logger.info("Saving user:{} into database", user.getUsername());
         userRepository.save(user);
 
-        Object object = restTemplate.postForObject("http://ACCOUNT-SERVICE/account/", user, Object.class);
+        Object object = restTemplate.postForObject("http://ACCOUNT-SERVICE/create", user, Object.class);
 
         if(Objects.isNull(object)){
             return ResponseEntity.internalServerError().body(new MessageResponse("Error: Could not create account"));
@@ -139,10 +139,11 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        logger.info("Signing in user: {}", userDetails.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                  userDetails.getId(),
+                                                 userDetails.getUsername(),
                                                  userDetails.getEmail(),
-                                                 userDetails.getPassword(),
                                                  roles));
     }
 
