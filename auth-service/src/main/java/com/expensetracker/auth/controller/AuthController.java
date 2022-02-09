@@ -75,7 +75,7 @@ public class AuthController {
                     .body(new MessageResponse("This email is already in use"));
         }
 
-        logger.info("creating the new user");
+        logger.info("creating new user: " + signupRequest.getUsername());
         User user = new User(signupRequest.getFirstname(),
                              signupRequest.getLastname(),
                              signupRequest.getUsername(),
@@ -109,11 +109,9 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        logger.info("Saving user into database");
+        logger.info("Saving user {} into database", user.getUsername());
         userRepository.save(user);
 
-        logger.info("Creating user account");
-        // send request to account service to create new account
         Object object = restTemplate.postForObject("http://ACCOUNT-SERVICE/account/", user, Object.class);
 
         if(Objects.isNull(object)){

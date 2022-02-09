@@ -2,11 +2,15 @@ package com.expensetracker.account.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.validation.constraints.NotNull;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
 
+    @NotNull
     private int id;
 
+    @NotNull
     private String username;
 
     public int getId() {
