@@ -15,6 +15,10 @@ spring:
 server:
   port: 8083
 
+expenseTracker:
+  jwt:
+    secretKey: secret
+
 eureka:
   client:
     register-with-eureka: true
