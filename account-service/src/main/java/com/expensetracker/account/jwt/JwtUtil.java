@@ -15,7 +15,7 @@ public class JwtUtil {
     @Value("${expenseTracker.jwt.secretKey}")
     private String secretKey;
 
-    private String extractUsername(String jwtToken){
+    public String extractUsername(String jwtToken){
         return extractClaim(jwtToken, Claims::getSubject);
     }
 
@@ -26,13 +26,12 @@ public class JwtUtil {
     private boolean isTokenExpired(String jwtToken){
        return extractExpirationDate(jwtToken).before(new Date());
     }
-
     private <T> T extractClaim(String jwtToken, Function<Claims, T> claimResolver) {
         Claims claims = getAllClaims(jwtToken);
         return claimResolver.apply(claims);
     }
 
-    private Claims getAllClaims(String jwtToken){
+    public Claims getAllClaims(String jwtToken){
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken).getBody();
     }
 
