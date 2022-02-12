@@ -77,11 +77,10 @@ public class AuthController {
 
         logger.info("Creating new user: " + signupRequest.getUsername());
         User user = new User(signupRequest.getFirstname(),
-                             signupRequest.getLastname(),
-                             signupRequest.getUsername(),
-                             signupRequest.getEmail(),
-                             passwordEncoder.encode(signupRequest.getPassword()));
-
+                signupRequest.getLastname(),
+                signupRequest.getUsername(),
+                signupRequest.getEmail(),
+                passwordEncoder.encode(signupRequest.getPassword()));
 
         Set<String> strRoles = signupRequest.getRoles();
         Set<Role> roles = new HashSet<>();
@@ -109,14 +108,14 @@ public class AuthController {
 
         user.setRoles(roles);
 
-        logger.info("Saving user:{} into database", user.getUsername());
-        userRepository.save(user);
-
         Object object = restTemplate.postForObject("http://ACCOUNT-SERVICE/create", user, Object.class);
 
         if(Objects.isNull(object)){
             return ResponseEntity.internalServerError().body(new MessageResponse("Error: Could not create account"));
         }
+
+        logger.info("Saving user:{} into database", user.getUsername());
+        userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("Registration successful"));
     }

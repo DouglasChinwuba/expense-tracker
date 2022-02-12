@@ -3,7 +3,6 @@ package com.expensetracker.account.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
 import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,7 +15,7 @@ public class User {
     private String username;
 
     @NotNull
-    private Set<String> roles = new HashSet<>();
+    private Set<Role> roles;
 
     public int getId() {
         return id;
@@ -34,11 +33,20 @@ public class User {
         this.username = username;
     }
 
-    public Set<String> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }
