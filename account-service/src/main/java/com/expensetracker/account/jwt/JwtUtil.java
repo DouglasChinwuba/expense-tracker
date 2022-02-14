@@ -6,10 +6,15 @@ import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtUtil {
@@ -25,6 +30,16 @@ public class JwtUtil {
 
     private Date extractExpirationDate(String jwtToken){
         return extractClaim(jwtToken, Claims::getExpiration);
+    }
+
+    public int getId(String jwtToken){
+        return (int) getAllClaims(jwtToken).get("id");
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(String jwtToken){
+        return Arrays.asList(getAllClaims(jwtToken).get("role").toString().split(",")).stream()
+                .map(authority -> new SimpleGrantedAuthority(authority))
+                .collect(Collectors.toList());
     }
 
     private boolean isTokenExpired(String jwtToken){

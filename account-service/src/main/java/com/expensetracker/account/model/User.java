@@ -3,7 +3,7 @@ package com.expensetracker.account.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.Collection;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
@@ -15,7 +15,7 @@ public class User {
     private String username;
 
     @NotNull
-    private Set<Role> roles;
+    private Collection<?> roles;
 
     public int getId() {
         return id;
@@ -33,11 +33,11 @@ public class User {
         this.username = username;
     }
 
-    public Set<Role> getRoles() {
+    public Collection<?> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Collection<?> roles) {
         this.roles = roles;
     }
 

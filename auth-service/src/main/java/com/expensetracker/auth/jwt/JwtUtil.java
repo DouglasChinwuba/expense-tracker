@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -28,7 +30,13 @@ public class JwtUtil {
     private String jwtExpirationMs;
 
     public String generateJwtToken(UserDetailsImpl userDetails){
+        List<String> auth = userDetails.getAuthorities().stream()
+                .map(grantedAuthority -> grantedAuthority.getAuthority())
+                .collect(Collectors.toList());
+
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", userDetails.getId());
+        claims.put("role", auth.toArray());
         return createToken(claims, userDetails.getUsername());
     }
 
