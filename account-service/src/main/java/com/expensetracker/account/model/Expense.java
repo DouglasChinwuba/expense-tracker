@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -35,11 +33,6 @@ public class Expense {
     @Column(name = "date")
     @NotNull
     private LocalDateTime date;
-
-    @ManyToOne
-    @NotNull
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     public Expense() {
     }
@@ -74,13 +67,5 @@ public class Expense {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

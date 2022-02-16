@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,8 +30,13 @@ public class AccountController {
     @GetMapping("/account/{username}")
     public ResponseEntity<?> getAccountByName(@Valid @PathVariable String username){
         Account account = accountService.findByName(username);
-        logger.info("Returning account");
         return account != null ? ResponseEntity.ok(account) : new ResponseEntity(HttpStatus.FORBIDDEN);
+    }
+
+    @PutMapping("/save")
+    public ResponseEntity<?> saveAccount(@Valid @RequestBody Account account){
+        accountService.saveChanges(account);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/create")

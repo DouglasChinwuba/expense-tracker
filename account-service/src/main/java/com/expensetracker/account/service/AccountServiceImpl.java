@@ -18,6 +18,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public Account findByName(String accountName) {
+        logger.info("Finding account by name");
         return accountRepository.findByName(accountName);
     }
 
@@ -29,9 +30,18 @@ public class AccountServiceImpl implements AccountService{
         account.setName(user.getUsername());
 
         accountRepository.save(account);
-
         logger.info("new account has been created: " + account.getName());
 
         return account;
+    }
+
+    @Override
+    public void saveChanges(Account accountUpdate) {
+        Account account = accountRepository.findByName(accountUpdate.getName());
+
+        account.setIncomes(accountUpdate.getIncomes());
+        account.setExpenses(accountUpdate.getExpenses());
+        accountRepository.save(account);
+        logger.info("Saving changes to account:{}", account.getName());
     }
 }

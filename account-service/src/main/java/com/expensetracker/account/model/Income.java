@@ -1,12 +1,13 @@
 package com.expensetracker.account.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "incomes")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Income {
 
     @Id
@@ -34,12 +36,8 @@ public class Income {
 
     @Column(name = "transaction_date")
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;
-
-    @ManyToOne
-    @NotNull
-    @JoinColumn(name = "account_id")
-    private Account account;
 
     public Income() {
     }
@@ -74,13 +72,5 @@ public class Income {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

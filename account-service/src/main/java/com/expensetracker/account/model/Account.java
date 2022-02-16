@@ -1,5 +1,8 @@
 package com.expensetracker.account.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "accounts")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
 
     @Id
@@ -27,10 +31,10 @@ public class Account {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Income> incomes;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
     private List<Expense> expenses;
 
     public Account() {
