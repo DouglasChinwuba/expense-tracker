@@ -141,6 +141,8 @@ public class AuthController {
         logger.info("Signing in user: {}", userDetails.getUsername());
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                  userDetails.getId(),
+                                                 userDetails.getFirstname(),
+                                                 userDetails.getLastname(),
                                                  userDetails.getUsername(),
                                                  userDetails.getEmail(),
                                                  roles));

@@ -1,5 +1,9 @@
 package com.expensetracker.account.model;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,13 +17,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "expenses")
-public class Expense {
+@Table(name = "transactions")
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Transaction {
 
     @Id
-    @Column(name = "transaction_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int transactionId;
+    private int id;
 
     @Column(name = "description")
     @Size(max = 50)
@@ -30,19 +35,21 @@ public class Expense {
     @NotNull
     private BigDecimal amount;
 
+    @Column(name = "type")
+    @NotNull
+    private String type;
+
     @Column(name = "date")
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;
 
-    public Expense() {
+    public int getId() {
+        return id;
     }
 
-    public int getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
@@ -59,6 +66,14 @@ public class Expense {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public LocalDateTime getDate() {

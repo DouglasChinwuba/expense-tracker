@@ -22,11 +22,7 @@ public class Account {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accountId;
-
-    @Column(name = "user_id")
-    @NotNull
-    private int userId;
+    private int id;
 
     @Column(name = "user_name")
     @NotNull
@@ -34,29 +30,17 @@ public class Account {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "account_id")
-    private List<Income> incomes;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private List<Expense> expenses;
+    private List<Transaction> transactions;
 
     public Account() {
     }
 
-    public int getAccountId() {
-        return accountId;
+    public int getId() {
+        return id;
     }
 
-    public void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -65,21 +49,5 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Income> getIncomes() {
-        return incomes;
-    }
-
-    public void setIncomes(List<Income> incomes) {
-        this.incomes = incomes;
-    }
-
-    public List<Expense> getExpenses() {
-        return expenses;
-    }
-
-    public void setExpenses(List<Expense> expenses) {
-        this.expenses = expenses;
     }
 }
