@@ -8,11 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "accounts")
@@ -28,9 +27,12 @@ public class Account {
     @NotNull
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id")
-    private List<Transaction> transactions;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "account_id")
+//    private List<Transaction> transactions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Set<Transaction> transactions;
 
     public Account() {
     }
@@ -49,5 +51,17 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+
+        for(Transaction transaction : transactions){
+            transaction.setAccount(this);
+        }
     }
 }

@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -35,14 +37,18 @@ public class Transaction {
     @NotNull
     private BigDecimal amount;
 
-    @Column(name = "type")
+    @Column(name = "transaction_type")
     @NotNull
     private String type;
 
-    @Column(name = "date")
+    @Column(name = "transaction_date")
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;
+
+    @ManyToOne
+    @JoinColumn(name = "account_id")
+    private Account account;
 
     public int getId() {
         return id;
@@ -83,4 +89,13 @@ public class Transaction {
     public void setDate(LocalDateTime date) {
         this.date = date;
     }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
 }

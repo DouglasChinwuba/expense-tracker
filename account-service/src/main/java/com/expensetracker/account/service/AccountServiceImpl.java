@@ -38,9 +38,13 @@ public class AccountServiceImpl implements AccountService{
     public void saveChanges(Account accountUpdate) {
         Account account = accountRepository.findByName(accountUpdate.getName());
 
-        account.setIncomes(accountUpdate.getIncomes());
-        account.setExpenses(accountUpdate.getExpenses());
-        accountRepository.save(account);
-        logger.info("Saving changes to account:{}", account.getName());
+//        account.setTransactions(accountUpdate.getTransactions());
+        accountUpdate.setId(account.getId());
+
+        accountRepository.save(accountUpdate);
+
+//        accountUpdate.setId(0);
+//        accountRepository.save(accountUpdate);
+        logger.info("Saving changes to account:{}", accountUpdate.getName());
     }
 }
