@@ -1,10 +1,13 @@
 package com.expensetracker.notification.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 public class Account {
     @Id
@@ -15,6 +18,13 @@ public class Account {
     @Column(name = "user_name")
     @NotNull
     private String name;
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "account_id")
+//    private List<Transaction> transactions;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
+    private Set<Transaction> transactions;
 
     public Account() {
     }
@@ -33,5 +43,17 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
+
+        for(Transaction transaction : transactions){
+            transaction.setAccount(this);
+        }
     }
 }

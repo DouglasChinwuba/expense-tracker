@@ -17,4 +17,12 @@ public class AccountServiceImpl implements AccountService{
         logger.info("Finding account by name");
         return accountRepository.findByName(accountName);
     }
+
+    @Override
+    public void updateSetting(String username, boolean sendEmail) {
+        Account account = accountRepository.findByName(username);
+        account.setSendEmail(sendEmail);
+        accountRepository.save(account);
+        logger.info("Updating account notification settings");
+    }
 }
