@@ -26,6 +26,8 @@ public class Account {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private Set<Transaction> transactions;
 
+    private boolean sendEmail;
+
     public Account() {
     }
 
@@ -55,5 +57,13 @@ public class Account {
         for(Transaction transaction : transactions){
             transaction.setAccount(this);
         }
+    }
+
+    public boolean isSendEmail() {
+        return sendEmail;
+    }
+
+    public void setSendEmail(boolean sendEmail) {
+        this.sendEmail = sendEmail;
     }
 }

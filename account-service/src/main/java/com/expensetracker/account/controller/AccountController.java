@@ -1,8 +1,10 @@
 package com.expensetracker.account.controller;
 
 import com.expensetracker.account.model.Account;
+import com.expensetracker.account.model.Transaction;
 import com.expensetracker.account.model.User;
 import com.expensetracker.account.service.AccountService;
+import com.expensetracker.account.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +29,24 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private TransactionService transactionService;
+
     @GetMapping("/account/{username}")
     public ResponseEntity<?> getAccountByName(@Valid @PathVariable String username){
         Account account = accountService.findByName(username);
         return account != null ? ResponseEntity.ok(account) : new ResponseEntity(HttpStatus.FORBIDDEN);
     }
 
-    @PutMapping("/save")
-    public ResponseEntity<?> saveAccount(@Valid @RequestBody Account account){
-        accountService.saveChanges(account);
+    @PutMapping("/save/{username}")
+    public ResponseEntity<?> saveTransaction(@Valid @RequestBody Transaction transaction){
+        transactionService.saveTransaction(transaction);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/delete/{username}")
+    public ResponseEntity<?> deleteTransaction(@Valid @RequestBody Transaction transaction){
+        transactionService.deleteTransaction(transaction);
         return new ResponseEntity(HttpStatus.OK);
     }
 

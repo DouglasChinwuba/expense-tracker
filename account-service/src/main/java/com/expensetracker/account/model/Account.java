@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "accounts")
@@ -31,8 +31,8 @@ public class Account {
 //    @JoinColumn(name = "account_id")
 //    private List<Transaction> transactions;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Set<Transaction> transactions;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    private List<Transaction> transactions;
 
     public Account() {
     }
@@ -53,14 +53,15 @@ public class Account {
         this.name = name;
     }
 
-    public Set<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(Set<Transaction> transactions) {
-        this.transactions = transactions;
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions.clear();
 
         for(Transaction transaction : transactions){
+            this.transactions.add(transaction);
             transaction.setAccount(this);
         }
     }

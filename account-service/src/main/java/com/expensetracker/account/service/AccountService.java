@@ -8,6 +8,4 @@ public interface AccountService {
     Account findByName(String accountName);
 
     Account create(User user);
-
-    void saveChanges(Account account);
 }
