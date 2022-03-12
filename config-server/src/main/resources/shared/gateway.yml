@@ -15,7 +15,7 @@ spring:
         - id: account-service
           uri: lb://ACCOUNT-SERVICE
           predicates:
-            - Path=/create, /account/**, /save
+            - Path=/create, /account/**, /save/**, /delete/**
 
 server:
   port: 8081

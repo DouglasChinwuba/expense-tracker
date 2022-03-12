@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,14 +40,15 @@ public class AccountController {
     }
 
     @PutMapping("/save/{username}")
-    public ResponseEntity<?> saveTransaction(@Valid @RequestBody Transaction transaction){
-        transactionService.saveTransaction(transaction);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<?> saveTransaction(@PathVariable String username,
+                                             @Valid @RequestBody Transaction transaction){
+        Transaction savedTransaction = transactionService.saveTransaction(username, transaction);
+        return ResponseEntity.ok().body(savedTransaction);
     }
 
-    @PutMapping("/delete/{username}")
-    public ResponseEntity<?> deleteTransaction(@Valid @RequestBody Transaction transaction){
-        transactionService.deleteTransaction(transaction);
+    @DeleteMapping("/delete/{transactionId}")
+    public ResponseEntity<?> deleteTransaction(@PathVariable int transactionId){
+        transactionService.deleteTransaction(transactionId);
         return new ResponseEntity(HttpStatus.OK);
     }
 

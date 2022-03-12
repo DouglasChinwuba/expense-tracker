@@ -2,6 +2,7 @@ package com.expensetracker.account.model;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
@@ -17,7 +18,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "transactions")
@@ -47,6 +47,7 @@ public class Transaction {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS", shape = JsonFormat.Shape.STRING)
     private LocalDateTime date;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -97,18 +98,5 @@ public class Transaction {
 
     public void setAccount(Account account) {
         this.account = account;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Transaction)) return false;
-        Transaction that = (Transaction) o;
-        return Objects.equals(description, that.description) && Objects.equals(amount, that.amount) && Objects.equals(type, that.type) && Objects.equals(date, that.date) && Objects.equals(account, that.account);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(description, amount, type, date, account);
     }
 }

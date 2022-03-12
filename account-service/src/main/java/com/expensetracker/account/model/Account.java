@@ -27,11 +27,10 @@ public class Account {
     @NotNull
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "account_id")
-//    private List<Transaction> transactions;
+    @Column(name = "notification_enabled")
+    private boolean notificationEnabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
     private List<Transaction> transactions;
 
     public Account() {
@@ -51,6 +50,14 @@ public class Account {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean getNotificationEnabled() {
+        return notificationEnabled;
+    }
+
+    public void setNotificationEnabled(boolean notificationEnabled) {
+        notificationEnabled = notificationEnabled;
     }
 
     public List<Transaction> getTransactions() {

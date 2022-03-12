@@ -3,7 +3,7 @@ package com.expensetracker.account.service;
 import com.expensetracker.account.model.Transaction;
 
 public interface TransactionService {
-    Transaction saveTransaction(Transaction transaction);
+    Transaction saveTransaction(String username, Transaction transaction);
 
-    Transaction deleteTransaction(Transaction transaction);
+    void deleteTransaction(int transactionId);
 }
