@@ -1,14 +1,22 @@
 package com.expensetracker.notification.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import java.util.List;
 
+@Entity
+@Table(name = "accounts")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
     @Id
     @Column(name = "id")
@@ -19,14 +27,11 @@ public class Account {
     @NotNull
     private String name;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "account_id")
-//    private List<Transaction> transactions;
+    @Column(name = "notification_enabled")
+    private boolean notificationEnabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account")
-    private Set<Transaction> transactions;
-
-    private boolean sendEmail;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.LAZY)
+    private List<Transaction> transactions;
 
     public Account() {
     }
@@ -47,11 +52,11 @@ public class Account {
         this.name = name;
     }
 
-    public Set<Transaction> getTransactions() {
+    public List<Transaction> getTransactions() {
         return transactions;
     }
 
-    public void setTransactions(Set<Transaction> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
 
         for(Transaction transaction : transactions){
@@ -59,11 +64,11 @@ public class Account {
         }
     }
 
-    public boolean isSendEmail() {
-        return sendEmail;
+    public boolean isNotificationEnabled() {
+        return notificationEnabled;
     }
 
-    public void setSendEmail(boolean sendEmail) {
-        this.sendEmail = sendEmail;
+    public void setNotificationEnabled(boolean notificationEnabled) {
+        this.notificationEnabled = notificationEnabled;
     }
 }

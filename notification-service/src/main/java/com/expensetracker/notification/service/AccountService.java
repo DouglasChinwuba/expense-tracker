@@ -6,5 +6,5 @@ public interface AccountService{
 
     Account findByName(String accountName);
 
-    void updateSetting(String username, boolean sendEmail);
+    void updateSetting(String username, boolean receiveEmail);
 }

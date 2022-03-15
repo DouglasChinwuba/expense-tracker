@@ -16,6 +16,10 @@ spring:
           uri: lb://ACCOUNT-SERVICE
           predicates:
             - Path=/create, /account/**, /save/**, /delete/**
+        - id: notification-service
+          uri: lb://NOTIFICATION-SERVICE
+          predicates:
+            - Path=/setting/**
 
 server:
   port: 8081

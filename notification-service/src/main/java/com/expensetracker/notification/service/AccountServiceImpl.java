@@ -21,9 +21,9 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public void updateSetting(String username, boolean sendEmail) {
+    public void updateSetting(String username, boolean receiveEmail) {
         Account account = accountRepository.findByName(username);
-        account.setSendEmail(sendEmail);
+        account.setNotificationEnabled(receiveEmail);
         accountRepository.save(account);
         logger.info("Updating account {} notification settings", account.getName());
     }

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Optional;
 
+@Component
 public class JwtRequestFilter extends OncePerRequestFilter {
     private static Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 

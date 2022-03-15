@@ -17,7 +17,6 @@ import java.util.List;
 @Table(name = "accounts")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Account {
-
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,10 +14,10 @@ public class NotificationController {
     @Autowired
     AccountService accountService;
 
-    @PutMapping("/setting/{username}/{sendEmail}")
+    @PutMapping("/setting/{username}/{receiveEmail}")
     public ResponseEntity<?> updateNotificationSetting(@PathVariable String username,
-                                                      @PathVariable boolean sendEmail){
-        accountService.updateSetting(username, sendEmail);
+                                                      @PathVariable boolean receiveEmail){
+        accountService.updateSetting(username, receiveEmail);
         return new ResponseEntity(HttpStatus.OK);
     }
 }
