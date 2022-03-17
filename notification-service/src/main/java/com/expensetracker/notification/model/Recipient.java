@@ -2,16 +2,16 @@ package com.expensetracker.notification.model;
 
 public class Recipient {
 
-    private User user;
+    private String email;
 
     private Account account;
 
-    public User getUser() {
-        return user;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Account getAccount() {
