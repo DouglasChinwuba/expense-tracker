@@ -6,6 +6,11 @@ public class Recipient {
 
     private Account account;
 
+    public Recipient(String email, Account account){
+        this.email = email;
+        this.account = account;
+    }
+
     public String getEmail() {
         return email;
     }
