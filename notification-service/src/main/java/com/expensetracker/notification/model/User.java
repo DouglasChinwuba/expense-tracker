@@ -1,27 +1,36 @@
 package com.expensetracker.notification.model;
 
+import org.springframework.stereotype.Component;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@Component
 @Entity
 @Table(name="users")
 public class User {
 
     @Id
+    @Column(name="id")
     private int id;
 
+    @Column(name = "first_name")
     @NotBlank
     private String firstname;
 
+    @Column(name = "last_name")
     @NotBlank
     private String lastname;
 
+    @Column(name = "user_name")
     @NotBlank
     private String username;
 
+    @Column(name = "email")
     @NotBlank
     @Email
     private String email;

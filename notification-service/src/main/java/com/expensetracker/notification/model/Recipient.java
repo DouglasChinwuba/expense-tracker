@@ -1,24 +1,27 @@
 package com.expensetracker.notification.model;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 
+@Component
 public class Recipient {
 
-    private String email;
+    private User user;
 
     private Account account;
 
-    public Recipient(String email, Account account){
-        this.email = email;
+    public Recipient(User user, Account account){
+        this.user = user;
         this.account = account;
     }
 
-    public String getEmail() {
-        return email;
+    public User getUser() {
+        return user;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Account getAccount() {

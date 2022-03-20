@@ -1,6 +1,7 @@
 package com.expensetracker.notification.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Component
 @Entity
 @Table(name = "accounts")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -30,7 +32,7 @@ public class Account {
     @Column(name = "notification_enabled")
     private boolean notificationEnabled;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", fetch = FetchType.EAGER)
     private List<Transaction> transactions;
 
     public Account() {
