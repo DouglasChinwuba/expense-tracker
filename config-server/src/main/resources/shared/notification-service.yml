@@ -16,6 +16,9 @@ server:
 expenseTracker:
   jwt:
     secretKey: secret
+  notification:
+    email: "expensetrackernotification@gmail.com"
+    password: "expenseapp"
 
 eureka:
   client:
@@ -28,3 +31,4 @@ eureka:
 
 notify:
   cron: 0 0 12 * * 6
+
