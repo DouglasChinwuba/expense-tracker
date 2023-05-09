@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/expense_tracker?useSSL=false
-    username: user
-    password: test123
+    url: jdbc:postgresql://ep-super-mode-742008.us-east-2.aws.neon.tech/neondb
+    username: douglaschinwuba10
+    password: c8pkvslXbiP5
   jpa:
 #    hibernate:
 #      ddl-auto: update
