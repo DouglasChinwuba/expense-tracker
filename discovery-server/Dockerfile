@@ -4,4 +4,4 @@ MAINTAINER Douglas Chinwuba <cemekadouglas@yahoo.com>
 ADD target/discovery-server.jar discovery-server.jar
 ENTRYPOINT ["java", "-jar", "/discovery-server.jar"]
 
-EXPOSE 8082
+EXPOSE 8761
