@@ -1,9 +1,7 @@
 FROM amazoncorretto:11
 MAINTAINER Douglas Chinwuba <cemekadouglas@yahoo.com>
 
-RUN mkdir /app/gateway
+RUN mkdir /opt/gateway
 
-ADD target/gateway.jar /app/gateway/gateway.jar
-ENTRYPOINT ["java", "-jar", "/app/gateway/gateway.jar"]
-
-EXPOSE 8081
+ADD target/gateway.jar /opt/gateway/gateway.jar
+ENTRYPOINT ["java", "-jar", "/opt/gateway/gateway.jar"]
