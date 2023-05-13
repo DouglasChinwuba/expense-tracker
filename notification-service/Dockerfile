@@ -1,7 +1,9 @@
 FROM amazoncorretto:11
 MAINTAINER Douglas Chinwuba <cemekadouglas@yahoo.com>
 
-ADD target/notification-service.jar notification-service.jar
-ENTRYPOINT ["java", "-jar", "/notification-service.jar"]
+RUN mkdir /app/notification-service
+
+ADD target/notification-service.jar /app/notification-service/notification-service.jar
+ENTRYPOINT ["java", "-jar", "/app/notification-service/notification-service.jar"]
 
 EXPOSE 8084

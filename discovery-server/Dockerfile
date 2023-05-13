@@ -1,7 +1,9 @@
 FROM amazoncorretto:11
 MAINTAINER Douglas Chinwuba <cemekadouglas@yahoo.com>
 
-ADD target/discovery-server.jar discovery-server.jar
-ENTRYPOINT ["java", "-jar", "/discovery-server.jar"]
+RUN mkdir /app/discovery-server
+
+ADD target/discovery-server.jar /app/discovery-server/discovery-server.jar
+ENTRYPOINT ["java", "-jar", "/app/discovery-server/discovery-server.jar"]
 
 EXPOSE 8761
