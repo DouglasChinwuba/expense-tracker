@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2.1'
 
 services:
   discovery-server:
@@ -6,13 +6,80 @@ services:
     build:
       context: ./discovery-server
       dockerfile: Dockerfile
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://dis" ]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
     ports:
       - "8761:8761"
+    networks:
+      - expense-bridge
 
   config-server:
     container_name: config-server
     build:
       context: ./config-server
       dockerfile: Dockerfile
+    healthcheck:
+      test:
+    depends_on:
+      - discovery-server
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-server:8761/eureka/
     ports:
       - "8888:8888"
+    networks:
+      - expense-bridge
+
+  account-service:
+    container_name: account-service
+    build:
+      context: ./account-service
+      dockerfile: Dockerfile
+    depends_on:
+      discovery-server:
+          condition: service_healthy
+      config-server:
+          condition: service_healthy
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery-server:8761/eureka/
+    ports:
+      - "8083:8083"
+    networks:
+      - expense-bridge
+
+#  notification-service:
+#    container_name: notification-service
+#    build:
+#      context: ./notification-service
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - discovery-server
+#      - config-server
+#    environment:
+#      - eureka.client.service-url.defaultZone=http://discovery-server:8761/eureka/
+#    ports:
+#      - "8084:8084"
+#    networks:
+#      - expense-bridge
+
+
+#  gateway:
+#    container_name: gateway
+#    build:
+#      context: ./gateway
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - discovery-server
+#      - config-server
+#    ports:
+#      - "8081:8081"
+
+
+networks:
+  expense-bridge:
+    external: true
+
+
+

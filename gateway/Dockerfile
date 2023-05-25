@@ -5,3 +5,5 @@ RUN mkdir /opt/gateway
 
 ADD target/gateway.jar /opt/gateway/gateway.jar
 ENTRYPOINT ["java", "-jar", "/opt/gateway/gateway.jar"]
+
+EXPOSE 8081

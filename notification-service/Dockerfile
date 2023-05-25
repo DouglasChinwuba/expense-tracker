@@ -5,3 +5,5 @@ RUN mkdir /opt/notification-service
 
 ADD target/notification-service.jar /opt/notification-service/notification-service.jar
 ENTRYPOINT ["java", "-jar", "/opt/notification-service/notification-service.jar"]
+
+EXPOSE 8084
