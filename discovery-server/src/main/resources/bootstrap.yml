@@ -1,9 +1,6 @@
 spring:
   application:
     name: DISCOVERY-SERVER
-  cloud:
-    config:
-      uri: http://localhost:8888
 
 eureka:
   client:
